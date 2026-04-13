@@ -1,0 +1,17 @@
+#######################
+cd C:\Users\techbudfl\Development\receipt-ingestion\python
+
+# Create the virtual environment
+python -m venv venv
+
+# Activate it (Windows)
+venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run
+python main.py
+
+# Deactivate when done
+deactivate

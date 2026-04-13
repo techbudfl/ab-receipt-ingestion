@@ -1,0 +1,12 @@
+# Credentials (never commit these)
+config.local.yaml
+
+# Actual Budget cache
+actual-cache/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
