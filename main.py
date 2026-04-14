@@ -149,23 +149,11 @@ def process_receipt(file_info: dict, dropbox: DropboxClient, ocr: AzureOCR,
         skipped=result["skipped"],
     )
 
-def ping_healthcheck(url: str):
-    """Ping healthchecks.io to signal successful completion."""
-    import requests
-    log = logging.getLogger("main")
-    try:
-        requests.get(url, timeout=10)
-        log.info("Healthcheck ping sent.")
-    except Exception as e:
-        log.warning(f"Healthcheck ping failed: {e}")
-
-
 def main():
     """Main entry point — run the full receipt ingestion pipeline."""
 
     # ── Load configuration ────────────────────────────────────────
     config = load_config()
-    healthcheck_url = config["healthchecks"]["url"]
     setup_logging(config.get("logging", {}).get("level", "INFO"))
     log = logging.getLogger("main")
 
@@ -216,11 +204,9 @@ def main():
 
     if not files:
         log.info("No new receipts found. Done.")
-        ping_healthcheck(config["healthchecks"]["url"])
         return
 
     log.info(f"Found {len(files)} file(s) to process.")
-    ping_healthcheck(config["healthchecks"]["url"])
 
     # ── Process each receipt ──────────────────────────────────────
     for file_info in files:
