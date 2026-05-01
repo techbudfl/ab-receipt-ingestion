@@ -84,14 +84,14 @@ def process_receipt(file_info: dict, dropbox: DropboxClient, ocr: AzureOCR,
                      f"account={receipt.get('account')}")
 
         # Move to exception folder
-        new_path = dropbox.move_to_exception(source_path)
-        log.info(f"  Moved to: {new_path}")
+        #new_path = dropbox.move_to_exception(source_path)
+        #log.info(f"  Moved to: {new_path}")
 
         # Get a link for the notification
-        try:
-            exception_link = dropbox.get_temp_link(new_path)
-        except Exception:
-            exception_link = None
+        #try:
+        #    exception_link = dropbox.get_temp_link(new_path)
+        #except Exception:
+        #    exception_link = None
 
         notifier.notify_exception(
             merchant_name=receipt["merchant_name"],
@@ -99,9 +99,12 @@ def process_receipt(file_info: dict, dropbox: DropboxClient, ocr: AzureOCR,
             cardnumber=receipt.get("cardnumber"),
             receipt_link=exception_link,
         )
-        return
+        # return
+        account_name = account_name = mapper.lookup(receipt.get("cardnumber"),"none")
 
-    log.info(f"  Matched account: {account_name}")
+
+    else:
+        log.info(f"  Matched account: {account_name}")
 
     # ── Step 4: Import into Actual Budget ─────────────────────────
     log.info("  Importing to Actual Budget...")
