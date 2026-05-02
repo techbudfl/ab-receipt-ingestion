@@ -97,10 +97,11 @@ def process_receipt(file_info: dict, dropbox: DropboxClient, ocr: AzureOCR,
             merchant_name=receipt["merchant_name"],
             total=receipt["total"],
             cardnumber=receipt.get("cardnumber"),
-            receipt_link=exception_link,
+            #receipt_link=exception_link,
         )
         # return
         account_name = account_name = mapper.lookup(receipt.get("cardnumber"),"none")
+        
 
 
     else:
